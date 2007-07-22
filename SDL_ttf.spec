@@ -4,6 +4,7 @@
 %define	lib_name_orig	lib%{name}
 %define	lib_major	2.0
 %define	lib_name	%mklibname %{name} %{lib_major}
+%define develname	%mklibname -d %{name}
 
 Summary:	Simple DirectMedia Layer - Sample TrueType Font Library
 Name:		%{name}
@@ -41,15 +42,15 @@ Warning! TrueType font decoding is under patent, and software using this
 library may be in violation of this patent. Use at your own risk! See
 http://www.freetype.org/ for details.
 
-%package -n	%{lib_name}-devel
+%package -n	%{develname}
 Summary:	Headers for developing programs that will use %{name}
 Group:		Development/C
 Requires:	%{lib_name} = %{version}
 Provides:	%{lib_name_orig}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Obsoletes:	%{name}-devel
+Obsoletes:	%{name}-devel %{lib_name}-devel
 
-%description -n	%{lib_name}-devel
+%description -n	%{develname}
 This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
@@ -96,11 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README COPYING
 %{_libdir}/lib*.so.*
 
-%files -n %{lib_name}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc README COPYING CHANGES
 %{_libdir}/*a
 %{_libdir}/lib*.so
 %{_includedir}/SDL/*
-
-
