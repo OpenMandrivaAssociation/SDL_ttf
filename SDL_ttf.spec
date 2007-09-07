@@ -61,6 +61,7 @@ http://www.freetype.org/ for details.
 %package -n	%{lib_name}-test
 Summary:	Test binary for %{name}
 Group:		System/Libraries
+Conflicts:	showfont
 
 %description -n	%{lib_name}-test
 This package contains binary to test the associated library.
