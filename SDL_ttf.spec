@@ -17,6 +17,7 @@ License:	LGPL
 URL:		http://www.libsdl.org/projects/SDL_ttf/
 Group:		System/Libraries
 BuildRequires:	SDL-devel X11-devel audiofile-devel esound-devel freetype2-devel >= 2.1.7
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 This is a sample library which allows you to use TrueType fonts in your SDL
