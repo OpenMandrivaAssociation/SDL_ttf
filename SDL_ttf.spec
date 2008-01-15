@@ -1,22 +1,21 @@
-%define	name	SDL_ttf
-%define	version	2.0.9
-%define	release	%mkrel 1
 %define	lib_name_orig	lib%{name}
-%define	lib_major	2.0
-%define	lib_name	%mklibname %{name} %{lib_major}
-%define develname	%mklibname -d %{name}
+%define	major 0
+%define apiver 2.0
+%define	libname %mklibname %{name} %{apiver} %{major}
+%define develname %mklibname -d %{name}
 
 Summary:	Simple DirectMedia Layer - Sample TrueType Font Library
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		SDL_ttf
+Version:	2.0.9
+Release:	%mkrel 2
+License:	LGPLv2+
+Group:		System/Libraries
+URL:		http://www.libsdl.org/projects/SDL_ttf/
 Source0:	http://www.libsdl.org/projects/SDL_ttf/release/%{name}-%{version}.tar.bz2
 Patch0:		SDL_ttf-2.0.8-noftinternals.patch
-Patch1:         SDL_ttf-2.0.8-fix-mono-bitmaps-returned-when-nonmono-was-expected.patch
-License:	LGPL
-URL:		http://www.libsdl.org/projects/SDL_ttf/
-Group:		System/Libraries
-BuildRequires:	SDL-devel X11-devel audiofile-devel esound-devel freetype2-devel >= 2.1.7
+Patch1:		SDL_ttf-2.0.8-fix-mono-bitmaps-returned-when-nonmono-was-expected.patch
+BuildRequires:	SDL-devel
+BuildRequires:	freetype2-devel >= 2.1.7
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -28,13 +27,11 @@ Warning! TrueType font decoding is under patent, and software using this
 library may be in violation of this patent. Use at your own risk! See
 http://www.freetype.org/ for details.
 
-%package -n	%{lib_name}
+%package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
-Provides:	%{name} = %{version}-%{release}
-Obsoletes:	%{name}
 
-%description -n	%{lib_name}
+%description -n	%{libname}
 This package contains the library needed to run programs dynamically
 linked with %{name}.
 
@@ -42,13 +39,13 @@ Warning! TrueType font decoding is under patent, and software using this
 library may be in violation of this patent. Use at your own risk! See
 http://www.freetype.org/ for details.
 
-%package -n	%{develname}
+%package -n %{develname}
 Summary:	Headers for developing programs that will use %{name}
 Group:		Development/C
-Requires:	%{lib_name} = %{version}
+Requires:	%{libname} = %{version}-%{release}
 Provides:	%{lib_name_orig}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Obsoletes:	%{name}-devel %{lib_name}-devel
+Obsoletes:	%mklibname %{name} 2.0 -d
 
 %description -n	%{develname}
 This package contains the headers that programmers will need to develop
@@ -58,12 +55,12 @@ Warning! TrueType font decoding is under patent, and software using this
 library may be in violation of this patent. Use at your own risk! See
 http://www.freetype.org/ for details.
 
-%package -n	%{lib_name}-test
+%package -n %{libname}-test
 Summary:	Test binary for %{name}
 Group:		System/Libraries
 Conflicts:	showfont
 
-%description -n	%{lib_name}-test
+%description -n	%{libname}-test
 This package contains binary to test the associated library.
 
 %prep
@@ -76,31 +73,30 @@ This package contains binary to test the associated library.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%makeinstall
-install -d $RPM_BUILD_ROOT%{_bindir}
-install -m755 .libs/{showfont,glfont} $RPM_BUILD_ROOT%{_bindir}
+rm -rf %{buildroot}
+%makeinstall_std
+install -d %{buildroot}%{_bindir}
+install -m755 .libs/{showfont,glfont} %{buildroot}%{_bindir}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-%post -n %{lib_name} -p /sbin/ldconfig
+%post -n %{libname} -p /sbin/ldconfig
 
-%postun -n %{lib_name} -p /sbin/ldconfig
+%postun -n %{libname} -p /sbin/ldconfig
 
-%files -n %{lib_name}-test
+%files -n %{libname}-test
 %defattr(-,root,root)
 %{_bindir}/showfont
 %{_bindir}/glfont
 
-%files -n %{lib_name}
+%files -n %{libname}
 %defattr(-,root,root)
-%doc README COPYING
-%{_libdir}/lib*.so.*
+%{_libdir}/lib*%{apiver}.so.%{major}*
 
 %files -n %{develname}
 %defattr(-,root,root)
-%doc README COPYING CHANGES
+%doc README CHANGES
 %{_libdir}/*a
 %{_libdir}/lib*.so
 %{_includedir}/SDL/*
