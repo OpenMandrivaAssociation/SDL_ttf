@@ -7,7 +7,7 @@
 Summary:	Simple DirectMedia Layer - Sample TrueType Font Library
 Name:		SDL_ttf
 Version:	2.0.9
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_ttf/
@@ -30,6 +30,7 @@ http://www.freetype.org/ for details.
 %package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
+Obsoletes:	%mklibname %{name} 2.0
 
 %description -n	%{libname}
 This package contains the library needed to run programs dynamically
@@ -59,6 +60,7 @@ http://www.freetype.org/ for details.
 Summary:	Test binary for %{name}
 Group:		System/Libraries
 Conflicts:	showfont
+Obsoletes:	%mklibname %{name}-test 2.0
 
 %description -n	%{libname}-test
 This package contains binary to test the associated library.
