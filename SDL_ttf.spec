@@ -71,6 +71,7 @@ This package contains binary to test the associated library.
 #%patch1 -p0
 
 %build
+export CFLAGS="%{optflags} -lm"
 %configure2_5x
 %make
 
