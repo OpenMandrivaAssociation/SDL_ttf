@@ -7,7 +7,7 @@
 Summary:	Simple DirectMedia Layer - Sample TrueType Font Library
 Name:		SDL_ttf
 Version:	2.0.9
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_ttf/
