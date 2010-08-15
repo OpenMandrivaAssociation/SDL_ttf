@@ -6,14 +6,12 @@
 
 Summary:	Simple DirectMedia Layer - Sample TrueType Font Library
 Name:		SDL_ttf
-Version:	2.0.9
-Release:	%mkrel 6
+Version:	2.0.10
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_ttf/
-Source0:	http://www.libsdl.org/projects/SDL_ttf/release/%{name}-%{version}.tar.bz2
-Patch0:		SDL_ttf-2.0.8-noftinternals.patch
-Patch1:		SDL_ttf-2.0.8-fix-mono-bitmaps-returned-when-nonmono-was-expected.patch
+Source0:	http://www.libsdl.org/projects/SDL_ttf/release/%{name}-%{version}.tar.gz
 BuildRequires:	SDL-devel
 BuildRequires:	freetype2-devel >= 2.1.7
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -67,8 +65,6 @@ This package contains binary to test the associated library.
 
 %prep
 %setup -q
-#patch0 -p1 -b .noftinternals
-#%patch1 -p0
 
 %build
 export CFLAGS="%{optflags} -lm"
@@ -107,3 +103,4 @@ rm -rf %{buildroot}
 %{_libdir}/*a
 %{_libdir}/lib*.so
 %{_includedir}/SDL/*
+%{_libdir}/pkgconfig/*.pc
