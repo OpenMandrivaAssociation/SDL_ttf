@@ -1,20 +1,19 @@
 %define	lib_name_orig	lib%{name}
 %define	major 0
-%define apiver 2.0
+%define	apiver 2.0
 %define	libname %mklibname %{name} %{apiver} %{major}
-%define develname %mklibname -d %{name}
+%define	develname %mklibname -d %{name}
 
 Summary:	Simple DirectMedia Layer - Sample TrueType Font Library
 Name:		SDL_ttf
-Version:	2.0.10
-Release:	%mkrel 3
+Version:	2.0.11
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://www.libsdl.org/projects/SDL_ttf/
 Source0:	http://www.libsdl.org/projects/SDL_ttf/release/%{name}-%{version}.tar.gz
 BuildRequires:	SDL-devel
 BuildRequires:	freetype2-devel >= 2.1.7
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 This is a sample library which allows you to use TrueType fonts in your SDL
@@ -72,33 +71,22 @@ export CFLAGS="%{optflags} -lm"
 %make
 
 %install
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 %makeinstall_std
-install -d %{buildroot}%{_bindir}
-install -m755 .libs/{showfont,glfont} %{buildroot}%{_bindir}
+%__install -d %{buildroot}%{_bindir}
+%__install -m755 .libs/{showfont,glfont} %{buildroot}%{_bindir}
 
 %clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
+%__rm -rf %{buildroot}
 
 %files -n %{libname}-test
-%defattr(-,root,root)
 %{_bindir}/showfont
 %{_bindir}/glfont
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/lib*%{apiver}.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc README CHANGES
 %{_libdir}/*a
 %{_libdir}/lib*.so
