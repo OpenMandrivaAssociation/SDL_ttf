@@ -3,6 +3,7 @@
 %define	apiver 2.0
 %define	libname %mklibname %{name} %{apiver} %{major}
 %define	develname %mklibname -d %{name}
+%define _disable_lto 1
 
 Summary:	Simple DirectMedia Layer - Sample TrueType Font Library
 Name:		SDL_ttf
