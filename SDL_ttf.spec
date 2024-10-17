@@ -11,7 +11,7 @@ Version:	2.0.11
 Release:	13
 License:	LGPLv2+
 Group:		System/Libraries
-URL:		http://www.libsdl.org/projects/SDL_ttf/
+URL:		https://www.libsdl.org/projects/SDL_ttf/
 Source0:	http://www.libsdl.org/projects/SDL_ttf/release/%{name}-%{version}.tar.gz
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(freetype2)
